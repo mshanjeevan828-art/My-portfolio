@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -8,6 +8,7 @@ import {
   Database,
   Download,
   ExternalLink,
+  FileText,
   GraduationCap,
   Layers3,
   Mail,
@@ -15,7 +16,12 @@ import {
   Menu,
   MonitorSmartphone,
   Phone,
+  Send,
   Sparkles,
+  User,
+  Clock,
+  DollarSign,
+  Briefcase,
   X,
 } from 'lucide-react';
 
@@ -66,6 +72,10 @@ const projects = [
   },
 ];
 
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -92,6 +102,78 @@ function App() {
 
   const closeMenu = () => setIsMenuOpen(false);
   const navItems = ['about', 'skills', 'projects', 'contact'];
+
+  // Freelancer contact form state
+  const formRef = useRef(null);
+  const [formData, setFormData] = useState({
+    clientName: '',
+    clientEmail: '',
+    clientPhone: '',
+    projectType: '',
+    budget: '',
+    timeline: '',
+    projectDescription: '',
+  });
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+  const [isSending, setIsSending] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
+    setFormStatus({ type: '', message: '' });
+
+    try {
+      // Dynamically load EmailJS SDK
+      if (!window.emailjs) {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+        script.async = true;
+        await new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      const templateParams = {
+        from_name: formData.clientName,
+        from_email: formData.clientEmail,
+        phone: formData.clientPhone,
+        project_type: formData.projectType,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        message: formData.projectDescription,
+      };
+
+      await window.emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      setFormStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
+      setFormData({
+        clientName: '',
+        clientEmail: '',
+        clientPhone: '',
+        projectType: '',
+        budget: '',
+        timeline: '',
+        projectDescription: '',
+      });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setFormStatus({ type: 'error', message: 'Failed to send message. Please try emailing me directly.' });
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <div className="site-shell">
@@ -126,7 +208,7 @@ function App() {
             <p className="hero-lead">I’m Shanjeevan, a B.Tech Artificial Intelligence &amp; Data Science student and aspiring full-stack developer focused on turning ideas into thoughtful, real-world web applications.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={18} /></a>
-              <a className="button button-ghost" href="/Final%20resume.pdf" target="_blank" rel="noreferrer"><Download size={17} /> View resume</a>
+              <a className="button button-ghost" href="/Final_resume.pdf" target="_blank" rel="noreferrer" download="Shanjeevan_Resume.pdf"><Download size={17} /> Download resume</a>
             </div>
             <div className="hero-meta">
               <span><MapPin size={15} /> Coimbatore, India</span>
@@ -239,7 +321,40 @@ function App() {
               <div className="section-kicker">04 — Contact</div>
               <h2>Have an idea?<br /><span>Let’s build it.</span></h2>
               <p>I’m open to learning opportunities, collaborations, internships, and conversations around interesting web projects.</p>
-              <a className="button button-primary" href="mailto:mshanjeevan828@gmail.com">Start a conversation <ArrowUpRight size={18} /></a>
+              <form ref={formRef} onSubmit={handleFormSubmit} className="client-form">
+                <div className="form-grid">
+                  <input type="text" name="clientName" value={formData.clientName} onChange={handleInputChange} placeholder="Your Name" required />
+                  <input type="email" name="clientEmail" value={formData.clientEmail} onChange={handleInputChange} placeholder="Email Address" required />
+                  <input type="tel" name="clientPhone" value={formData.clientPhone} onChange={handleInputChange} placeholder="Phone Number" />
+                  <select name="projectType" value={formData.projectType} onChange={handleInputChange} required>
+                    <option value="" disabled>Select Project Type</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Full Stack App">Full Stack App</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <select name="budget" value={formData.budget} onChange={handleInputChange}>
+                    <option value="" disabled>Estimated Budget</option>
+                    <option value="< 10k INR">&lt; 10k INR</option>
+                    <option value="10k - 50k INR">10k - 50k INR</option>
+                    <option value="50k+ INR">50k+ INR</option>
+                  </select>
+                  <select name="timeline" value={formData.timeline} onChange={handleInputChange}>
+                    <option value="" disabled>Timeline</option>
+                    <option value="ASAP">ASAP</option>
+                    <option value="1-2 Months">1-2 Months</option>
+                    <option value="Flexible">Flexible</option>
+                  </select>
+                </div>
+                <textarea name="projectDescription" value={formData.projectDescription} onChange={handleInputChange} placeholder="Tell me about your project, goals, and any specific requirements..." rows="4" required></textarea>
+                
+                <button type="submit" className="button button-primary submit-btn" disabled={isSending}>
+                  {isSending ? 'Sending...' : 'Send Details'} <Send size={16} />
+                </button>
+                {formStatus.message && (
+                  <div className={`form-status ${formStatus.type}`}>{formStatus.message}</div>
+                )}
+              </form>
             </div>
             <div className="contact-side">
               <a href="mailto:mshanjeevan828@gmail.com"><Mail size={19} /><div><small>Email</small><strong>mshanjeevan828@gmail.com</strong></div><ArrowUpRight size={17} /></a>
