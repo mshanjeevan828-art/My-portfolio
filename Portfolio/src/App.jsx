@@ -55,7 +55,7 @@ const projects = [
   {
     title: 'Ruby Lives',
     type: 'Blood Donation Platform',
-    description: 'A practical platform designed to connect blood donors with patients in need, with donor registration, blood-group selection, and donor–patient connections.',
+    description: 'A practical platform designed to connect blood donors with patients in need, with donor registration, blood-group selection, and donor–patient connections. Note: I am currently working on this project and it is not completely finished.',
     image: '/donor.png',
     tags: ['Currently Working', 'React', 'Node.js', 'REST API', 'Tailwind CSS'],
     href: 'https://github.com/mshanjeevan828-art/Blood-donation-application',
@@ -64,7 +64,7 @@ const projects = [
   {
     title: 'LinkToLead',
     type: 'Sports Opportunity Platform',
-    description: 'A platform focused on helping sports players discover opportunities and connect with coaches and organizations through a focused web experience.',
+    description: 'A platform focused on helping sports players discover opportunities and connect with coaches and organizations through a focused web experience. Note: I am currently working on this project and it is not completely finished.',
     image: '/linktolead.png',
     tags: ['Currently Working', 'React', 'Full Stack', 'UI/UX Design'],
     href: '#contact',
@@ -72,9 +72,6 @@ const projects = [
   },
 ];
 
-const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -128,34 +125,24 @@ function App() {
     setFormStatus({ type: '', message: '' });
 
     try {
-      // Dynamically load EmailJS SDK
-      if (!window.emailjs) {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-        script.async = true;
-        await new Promise((resolve, reject) => {
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
+      const response = await fetch('https://formsubmit.co/ajax/mshanjeevan828@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          Name: formData.clientName,
+          Email: formData.clientEmail,
+          Phone: formData.clientPhone,
+          'Project Type': formData.projectType,
+          Budget: formData.budget,
+          Timeline: formData.timeline,
+          Message: formData.projectDescription,
+        })
+      });
 
-      const templateParams = {
-        from_name: formData.clientName,
-        from_email: formData.clientEmail,
-        phone: formData.clientPhone,
-        project_type: formData.projectType,
-        budget: formData.budget,
-        timeline: formData.timeline,
-        message: formData.projectDescription,
-      };
-
-      await window.emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY
-      );
+      if (!response.ok) throw new Error('Failed to send');
 
       setFormStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
       setFormData({
@@ -168,7 +155,7 @@ function App() {
         projectDescription: '',
       });
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Submission Error:', error);
       setFormStatus({ type: 'error', message: 'Failed to send message. Please try emailing me directly.' });
     } finally {
       setIsSending(false);
@@ -203,7 +190,7 @@ function App() {
       <main>
         <section id="home" className="hero section-wrap">
           <div className="hero-copy">
-            <div className="eyebrow"><span className="pulse-dot" /> Freelancer · Available for opportunities</div>
+            <div className="eyebrow"><span className="pulse-dot" /> Beginner Freelancer · Available for opportunities</div>
             <h1>Building digital experiences that feel <em>clear, useful &amp; memorable.</em></h1>
             <p className="hero-lead">I’m Shanjeevan, a B.Tech Artificial Intelligence &amp; Data Science student and aspiring full-stack developer focused on turning ideas into thoughtful, real-world web applications.</p>
             <div className="hero-actions">
