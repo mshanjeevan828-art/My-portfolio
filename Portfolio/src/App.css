@@ -67,6 +67,7 @@ h2 { font-family:Manrope,sans-serif; font-size:clamp(37px,5vw,62px); line-height
 .client-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .client-form input, .client-form select, .client-form textarea { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); font-family: inherit; font-size: 13px; transition: .25s; }
+.client-form option { background: var(--surface); color: var(--text); }
 .client-form input:focus, .client-form select:focus, .client-form textarea:focus { outline: none; border-color: var(--accent); background: rgba(255,255,255,.05); }
 .submit-btn { margin-top: 10px; width: fit-content; }
 .form-status { margin-top: 10px; font-size: 13px; padding: 10px; border-radius: 6px; }

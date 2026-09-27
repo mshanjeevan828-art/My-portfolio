@@ -57,7 +57,7 @@ const projects = [
     type: 'Blood Donation Platform',
     description: 'A practical platform designed to connect blood donors with patients in need, with donor registration, blood-group selection, and donor–patient connections.',
     image: '/donor.png',
-    tags: ['React', 'Node.js', 'REST API', 'Tailwind CSS'],
+    tags: ['Currently Working', 'React', 'Node.js', 'REST API', 'Tailwind CSS'],
     href: 'https://github.com/mshanjeevan828-art/Blood-donation-application',
     featured: true,
   },
@@ -66,7 +66,7 @@ const projects = [
     type: 'Sports Opportunity Platform',
     description: 'A platform focused on helping sports players discover opportunities and connect with coaches and organizations through a focused web experience.',
     image: '/linktolead.png',
-    tags: ['React', 'Full Stack', 'UI/UX Design'],
+    tags: ['Currently Working', 'React', 'Full Stack', 'UI/UX Design'],
     href: '#contact',
     featured: false,
   },
@@ -203,7 +203,7 @@ function App() {
       <main>
         <section id="home" className="hero section-wrap">
           <div className="hero-copy">
-            <div className="eyebrow"><span className="pulse-dot" /> Available for opportunities</div>
+            <div className="eyebrow"><span className="pulse-dot" /> Freelancer · Available for opportunities</div>
             <h1>Building digital experiences that feel <em>clear, useful &amp; memorable.</em></h1>
             <p className="hero-lead">I’m Shanjeevan, a B.Tech Artificial Intelligence &amp; Data Science student and aspiring full-stack developer focused on turning ideas into thoughtful, real-world web applications.</p>
             <div className="hero-actions">
@@ -212,7 +212,7 @@ function App() {
             </div>
             <div className="hero-meta">
               <span><MapPin size={15} /> Coimbatore, India</span>
-              <span><Sparkles size={15} /> Full-stack development</span>
+              <span><Sparkles size={15} /> Freelance Full-stack Developer</span>
             </div>
           </div>
 
