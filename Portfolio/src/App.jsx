@@ -8,7 +8,6 @@ import {
   Database,
   Download,
   ExternalLink,
-  FileText,
   GraduationCap,
   Layers3,
   Mail,
@@ -18,9 +17,6 @@ import {
   Phone,
   Send,
   Sparkles,
-  User,
-  Clock,
-  DollarSign,
   Briefcase,
   X,
 } from 'lucide-react';
@@ -42,6 +38,26 @@ const Github = ({ size = 24, className = '', ...props }) => (
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a5.5 5.5 0 0 0-1.5-3.8 5.2 5.2 0 0 0-.1-3.8s-1.2-.4-3.9 1.4a13.4 13.4 0 0 0-7 0C6.2 1.4 5 1.8 5 1.8a5.2 5.2 0 0 0-.1 3.8A5.5 5.5 0 0 0 3 9.5c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4" />
   </svg>
 );
+
+const Linkedin = ({ size = 24, className = '', ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={`lucide lucide-linkedin ${className}`}
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 import './App.css';
 
 const skills = [
@@ -51,24 +67,65 @@ const skills = [
   { name: 'Product & UI', icon: Layers3, items: ['Responsive UI', 'UI/UX thinking', 'Component architecture'] },
 ];
 
-const projects = [
+const workExperience = [
   {
-    title: 'Ruby Lives',
-    type: 'Blood Donation Platform',
-    description: 'A practical platform designed to connect blood donors with patients in need, with donor registration, blood-group selection, and donor–patient connections. Note: I am currently working on this project and it is not completely finished.',
+    title: 'RUBY LIVES',
+    type: 'Blood Donation Application · 2026 - PRESENT',
+    description: 'Collaboratively working in a platform, that acts as a bridge between donors and the patient to save lives. Rather than others apps on playstore we added some unique features and safety measures. Focusing to solve a problem that what the normal users faces.',
     image: '/donor.png',
-    tags: ['Currently Working', 'React', 'Node.js', 'REST API', 'Tailwind CSS'],
+    tags: ['Blood Donation', 'React', 'Node.js', 'REST API', 'Tailwind CSS'],
     href: 'https://github.com/mshanjeevan828-art/Blood-donation-application',
     featured: true,
+    ctaText: 'View repository',
   },
   {
-    title: 'LinkToLead',
-    type: 'Sports Opportunity Platform',
-    description: 'A platform focused on helping sports players discover opportunities and connect with coaches and organizations through a focused web experience. Note: I am currently working on this project and it is not completely finished.',
+    title: 'LINK TO LEAD',
+    type: 'Sports Platform · 2026 - PRESENT',
+    description: 'Collaboratively working in an application to solve a problem that every sports player and coaches faces to find the well trained player and finding opportunities for players to showcase their talent. We believe that our application should fulfill the empty opportunities and it should be the perfect platform for the player and coaches.',
     image: '/linktolead.png',
-    tags: ['Currently Working', 'React', 'Full Stack', 'UI/UX Design'],
+    tags: ['Sports Platform', 'React', 'Full Stack', 'UI/UX Design'],
     href: '#contact',
     featured: false,
+    ctaText: 'Discuss project',
+  },
+];
+
+const internships = [
+  {
+    title: 'INFOTECHIEZZ',
+    role: 'Web Developer Intern',
+    type: 'Thozhil Global Platform · AUG 17 — AUG 31, 2026',
+    description: 'I gained practical knowledge to explore more in the HTML, CSS, JAVASCRIPT, REACT. I proudly declare that, I have received the Certificate of Appreciation because of my hardwork, dedication, consistency.',
+    image: '/certificate.jpeg',
+    tags: ['Infotechiezz', 'Web Developer', 'HTML/CSS/JS', 'React', 'Certified'],
+    href: '/certificate.jpeg',
+    featured: true,
+    ctaText: 'View Certificate',
+  },
+];
+
+const projects = [
+  {
+    title: 'YAZH-RESTAURANT',
+    type: 'Restaurant Website · 2026-COMPLETED',
+    description: 'I have created a simple restaurant website to showcase my coding knowledge. I created this demo website using the HTML, CSS, JAVASCRIPT. Here is my vercel link to check out my coding skills.',
+    image: '/yazh-restaurant.svg',
+    tags: ['HTML', 'CSS', 'JavaScript', '2026-COMPLETED', 'Vercel'],
+    href: 'https://yazhrestaurant.vercel.app/',
+    githubHref: 'https://github.com/mshanjeevan828-art/yazhrestaurant.git',
+    featured: true,
+    ctaText: 'Visit live demo',
+  },
+  {
+    title: 'YAZH-CORPORATE HALL BOOKING WEBSITE',
+    type: 'Corporate Hall Booking · 2026-COMPLETED',
+    description: 'I have created demo and simple website for booking halls for corporate events using the technologies HTML, CSS, JAVASCRIPT, REACT. This project helps me to gain knowledge in UI/UX, how it works. From this project I have learnt how JavaScript works.',
+    image: '/yazh-hallbooking.svg',
+    tags: ['React', 'JavaScript', 'HTML5', 'CSS3', 'UI/UX', '2026-COMPLETED'],
+    href: 'https://corporatehallbooking.vercel.app/',
+    githubHref: 'https://github.com/mshanjeevan828-art/Yazhl_corporate-hall-booking.git',
+    featured: false,
+    ctaText: 'Visit live demo',
   },
 ];
 
@@ -77,6 +134,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [showTop, setShowTop] = useState(false);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const sections = document.querySelectorAll('main section[id]');
@@ -98,7 +156,7 @@ function App() {
   }, []);
 
   const closeMenu = () => setIsMenuOpen(false);
-  const navItems = ['about', 'skills', 'projects', 'contact'];
+  const navItems = ['about', 'skills', 'experience', 'projects', 'contact'];
 
   // Freelancer contact form state
   const formRef = useRef(null);
@@ -194,8 +252,8 @@ function App() {
             <h1>Building digital experiences that feel <em>clear, useful &amp; memorable.</em></h1>
             <p className="hero-lead">I’m Shanjeevan, a B.Tech Artificial Intelligence &amp; Data Science student and aspiring full-stack developer focused on turning ideas into thoughtful, real-world web applications.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#projects">Explore my work <ArrowUpRight size={18} /></a>
-              <a className="button button-ghost" href="/Final_resume.pdf" target="_blank" rel="noreferrer" download="Shanjeevan_Resume.pdf"><Download size={17} /> Download resume</a>
+              <a className="button button-primary" href="#experience">Explore my work <ArrowUpRight size={18} /></a>
+              <a className="button button-ghost" href="/resume.pdf" target="_blank" rel="noreferrer" download="Shanjeevan_M_Resume.pdf"><Download size={17} /> Download resume</a>
             </div>
             <div className="hero-meta">
               <span><MapPin size={15} /> Coimbatore, India</span>
@@ -206,7 +264,7 @@ function App() {
           <div className="hero-visual">
             <div className="portrait-frame">
               <div className="portrait-glow" />
-              <img src="/portfolio1.jpeg" alt="Shanjeevan" />
+              <img src="/resume.jpeg" alt="Shanjeevan" />
               <div className="portrait-label"><span>01</span><strong>Developer<br />in progress</strong></div>
             </div>
             <div className="floating-card card-top"><span className="mini-icon"><Code2 size={16} /></span><div><small>Focus</small><strong>Full Stack</strong></div></div>
@@ -215,7 +273,7 @@ function App() {
         </section>
 
         <section className="proof-strip section-wrap" aria-label="Portfolio highlights">
-          <div><strong>02+</strong><span>Active projects</span></div>
+          <div><strong>04+</strong><span>Projects &amp; builds</span></div>
           <div><strong>2026</strong><span>Hands-on experience</span></div>
           <div><strong>B.Tech</strong><span>AI &amp; Data Science</span></div>
           <div><strong>∞</strong><span>Curiosity to build</span></div>
@@ -256,56 +314,220 @@ function App() {
           </div>
         </section>
 
+        <section id="experience" className="content-section section-wrap">
+          <div className="section-heading project-heading">
+            <div>
+              <div className="section-kicker">03 — Experience</div>
+              <h2>Work &amp; <span>experience.</span></h2>
+            </div>
+            <p>Practical platforms and industry internships where I’m applying full-stack concepts to real use cases and learning through implementation.</p>
+          </div>
+
+          <div className="experience-filter-bar" role="tablist" aria-label="Experience filters">
+            <button
+              type="button"
+              className={`filter-tab ${filter === 'all' ? 'active' : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All Columns <span className="filter-badge">03</span>
+            </button>
+            <button
+              type="button"
+              className={`filter-tab ${filter === 'work' ? 'active' : ''}`}
+              onClick={() => setFilter('work')}
+            >
+              <Code2 size={14} /> Work Experience <span className="filter-badge">02</span>
+            </button>
+            <button
+              type="button"
+              className={`filter-tab ${filter === 'internships' ? 'active' : ''}`}
+              onClick={() => setFilter('internships')}
+            >
+              <Briefcase size={14} /> Internships <span className="filter-badge">01</span>
+            </button>
+          </div>
+
+          {filter === 'all' && (
+            <div className="experience-columns-wrap">
+              {/* Column 1: Work Experience */}
+              <div className="experience-column">
+                <div className="column-header">
+                  <div className="column-title-group">
+                    <div className="column-icon-badge"><Code2 size={16} /></div>
+                    <h3>Work Experience</h3>
+                  </div>
+                  <span className="column-count-badge">02 Roles</span>
+                </div>
+                <div className="column-cards">
+                  {workExperience.map((item, idx) => (
+                    <article className={`project-card ${item.featured ? 'featured' : ''}`} key={item.title}>
+                      <div className="project-image">
+                        <img src={item.image} alt={item.title} />
+                        <div className="project-overlay" />
+                        <span className="project-index">EXPERIENCE / 0{idx + 1}</span>
+                        <a className="circle-link" href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noreferrer' : undefined} aria-label={`Open ${item.title}`}><ExternalLink size={18} /></a>
+                      </div>
+                      <div className="project-body">
+                        <div className="project-type">{item.type}</div>
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                        <div className="tag-list">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                        <a className="text-link" href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noreferrer' : undefined}>
+                          {item.ctaText || 'View details'} <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              {/* Column 2: Internships */}
+              <div className="experience-column">
+                <div className="column-header">
+                  <div className="column-title-group">
+                    <div className="column-icon-badge"><Briefcase size={16} /></div>
+                    <h3>Internships</h3>
+                  </div>
+                  <span className="column-count-badge">01 Internship</span>
+                </div>
+                <div className="column-cards">
+                  {internships.map((internship, idx) => (
+                    <article className={`project-card ${internship.featured ? 'featured' : ''}`} key={internship.title}>
+                      <div className="project-image">
+                        <img src={internship.image} alt={internship.title} />
+                        <div className="project-overlay" />
+                        <span className="project-index">INTERNSHIP / 0{idx + 1}</span>
+                        <a className="circle-link" href={internship.href} target="_blank" rel="noreferrer" aria-label={`Open ${internship.title}`}><ExternalLink size={18} /></a>
+                      </div>
+                      <div className="project-body">
+                        <div className="project-type">{internship.type}</div>
+                        <h3>{internship.title}</h3>
+                        <p>{internship.description}</p>
+                        <div className="tag-list">{internship.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                        <a className="text-link" href={internship.href} target="_blank" rel="noreferrer">
+                          {internship.ctaText} <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {filter === 'work' && (
+            <div className="single-column-grid">
+              {workExperience.map((item, idx) => (
+                <article className={`project-card ${item.featured ? 'featured' : ''}`} key={item.title}>
+                  <div className="project-image">
+                    <img src={item.image} alt={item.title} />
+                    <div className="project-overlay" />
+                    <span className="project-index">EXPERIENCE / 0{idx + 1}</span>
+                    <a className="circle-link" href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noreferrer' : undefined} aria-label={`Open ${item.title}`}><ExternalLink size={18} /></a>
+                  </div>
+                  <div className="project-body">
+                    <div className="project-type">{item.type}</div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                    <div className="tag-list">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                    <a className="text-link" href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noreferrer' : undefined}>
+                      {item.ctaText || 'View details'} <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {filter === 'internships' && (
+            <div className="single-column-grid">
+              {internships.map((internship, idx) => (
+                <article className={`project-card ${internship.featured ? 'featured' : ''}`} key={internship.title}>
+                  <div className="project-image">
+                    <img src={internship.image} alt={internship.title} />
+                    <div className="project-overlay" />
+                    <span className="project-index">INTERNSHIP / 0{idx + 1}</span>
+                    <a className="circle-link" href={internship.href} target="_blank" rel="noreferrer" aria-label={`Open ${internship.title}`}><ExternalLink size={18} /></a>
+                  </div>
+                  <div className="project-body">
+                    <div className="project-type">{internship.type}</div>
+                    <h3>{internship.title}</h3>
+                    <p>{internship.description}</p>
+                    <div className="tag-list">{internship.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                    <a className="text-link" href={internship.href} target="_blank" rel="noreferrer">
+                      {internship.ctaText} <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="experience-section section-wrap">
+          <div className="section-kicker">Timeline — Experience &amp; education</div>
+          <div className="timeline">
+            <article className="timeline-item">
+              <div className="timeline-icon"><BriefcaseBusiness size={18} /></div>
+              <div className="timeline-content"><span>2026 — Present</span><h3>Full Stack Developer · RUBY LIVES</h3><p>Collaboratively working in a platform that acts as a bridge between donors and the patient to save lives, with unique features and safety measures.</p></div>
+            </article>
+            <article className="timeline-item">
+              <div className="timeline-icon"><BriefcaseBusiness size={18} /></div>
+              <div className="timeline-content"><span>2026 — Present</span><h3>Full Stack Developer · LINK TO LEAD</h3><p>Collaboratively working in an application to solve problems for sports players and coaches, finding opportunities to showcase talent.</p></div>
+            </article>
+            <article className="timeline-item">
+              <div className="timeline-icon"><Briefcase size={18} /></div>
+              <div className="timeline-content"><span>Aug 17 — Aug 31, 2026</span><h3>Web Developer Intern · INFOTECHIEZZ</h3><p>Completed internship via Thozhil Global Platform; awarded Certificate of Appreciation for dedication, hard work, and consistency.</p></div>
+            </article>
+            <article className="timeline-item">
+              <div className="timeline-icon"><GraduationCap size={19} /></div>
+              <div className="timeline-content"><span>Aug 2025 — Aug 2029</span><h3>B.Tech · Artificial Intelligence &amp; Data Science</h3><p>RVS College of Engineering and Technology — foundations in Python, data structures, web development, and AI.</p></div>
+            </article>
+          </div>
+        </section>
+
         <section id="projects" className="content-section section-wrap">
           <div className="section-heading project-heading">
-            <div><div className="section-kicker">03 — Selected work</div><h2>Projects with a <span>purpose.</span></h2></div>
-            <p>Projects where I’m applying full-stack concepts to real use cases and learning through implementation.</p>
+            <div>
+              <div className="section-kicker">04 — Projects</div>
+              <h2>Featured <span>projects.</span></h2>
+            </div>
+            <p>Live websites and web applications built from scratch, showcasing practical coding skills, frontend architecture, and live deployments.</p>
           </div>
           <div className="projects-grid">
-            {projects.map((project) => (
+            {projects.map((project, idx) => (
               <article className={`project-card ${project.featured ? 'featured' : ''}`} key={project.title}>
                 <div className="project-image">
-                  <img src={project.image} alt="" />
+                  <img src={project.image} alt={project.title} />
                   <div className="project-overlay" />
-                  <span className="project-index">PROJECT / {project.featured ? '01' : '02'}</span>
-                  <a className="circle-link" href={project.href} target={project.href.startsWith('http') ? '_blank' : undefined} rel={project.href.startsWith('http') ? 'noreferrer' : undefined} aria-label={`Open ${project.title}`}><ExternalLink size={18} /></a>
+                  <span className="project-index">PROJECT / 0{idx + 1}</span>
+                  <a className="circle-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}><ExternalLink size={18} /></a>
                 </div>
                 <div className="project-body">
                   <div className="project-type">{project.type}</div>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                  <a className="text-link" href={project.href} target={project.href.startsWith('http') ? '_blank' : undefined} rel={project.href.startsWith('http') ? 'noreferrer' : undefined}>
-                    {project.featured ? 'View repository' : 'Discuss project'} <ArrowUpRight size={16} />
-                  </a>
+                  <div style={{ display: 'flex', gap: '18px', alignItems: 'center', flexWrap: 'wrap', marginTop: '22px' }}>
+                    <a className="text-link" href={project.href} target="_blank" rel="noreferrer" style={{ marginTop: 0 }}>
+                      {project.ctaText} <ArrowUpRight size={16} />
+                    </a>
+                    {project.githubHref && (
+                      <a className="text-link" href={project.githubHref} target="_blank" rel="noreferrer" style={{ marginTop: 0, color: 'var(--muted)' }}>
+                        <Github size={14} /> Repository <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="experience-section section-wrap">
-          <div className="section-kicker">Experience &amp; education</div>
-          <div className="timeline">
-            <article className="timeline-item">
-              <div className="timeline-icon"><BriefcaseBusiness size={18} /></div>
-              <div className="timeline-content"><span>2026 — Present</span><h3>Full Stack Developer · Ruby Lives</h3><p>Collaborating on a blood donation platform with donor registration, blood-group selection, and donor–patient connection features.</p></div>
-            </article>
-            <article className="timeline-item">
-              <div className="timeline-icon"><BriefcaseBusiness size={18} /></div>
-              <div className="timeline-content"><span>2026 — Present</span><h3>Full Stack Developer · LinkToLead</h3><p>Collaborating on a platform that helps sports players discover opportunities and connect with coaches and organizations.</p></div>
-            </article>
-            <article className="timeline-item">
-              <div className="timeline-icon"><GraduationCap size={19} /></div>
-              <div className="timeline-content"><span>Aug 2025 — Aug 2029</span><h3>B.Tech · Artificial Intelligence &amp; Data Science</h3><p>RVS College of Engineering and Technology — building foundations in Python, data structures, web development, and artificial intelligence.</p></div>
-            </article>
-          </div>
-        </section>
-
         <section id="contact" className="contact-section section-wrap">
           <div className="contact-card">
             <div className="contact-main">
-              <div className="section-kicker">04 — Contact</div>
+              <div className="section-kicker">05 — Contact</div>
               <h2>Have an idea?<br /><span>Let’s build it.</span></h2>
               <p>I’m open to learning opportunities, collaborations, internships, and conversations around interesting web projects.</p>
               <form ref={formRef} onSubmit={handleFormSubmit} className="client-form">
@@ -346,6 +568,7 @@ function App() {
             <div className="contact-side">
               <a href="mailto:mshanjeevan828@gmail.com"><Mail size={19} /><div><small>Email</small><strong>mshanjeevan828@gmail.com</strong></div><ArrowUpRight size={17} /></a>
               <a href="https://github.com/mshanjeevan828-art" target="_blank" rel="noreferrer"><Github size={19} /><div><small>GitHub</small><strong>@mshanjeevan828-art</strong></div><ArrowUpRight size={17} /></a>
+              <a href="https://www.linkedin.com/in/m-shanjeevan-442737382/" target="_blank" rel="noreferrer"><Linkedin size={19} /><div><small>LinkedIn</small><strong>Shanjeevan M</strong></div><ArrowUpRight size={17} /></a>
               <a href="tel:9840662474"><Phone size={19} /><div><small>Phone</small><strong>+91 98406 62474</strong></div><ArrowUpRight size={17} /></a>
               <div className="contact-note"><span className="pulse-dot" /> Based in Coimbatore · Open to opportunities</div>
             </div>
